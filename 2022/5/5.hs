@@ -12,12 +12,11 @@ getStacks ss = map (dropWhile (== ' ')) $ transpose $ init rs
 getInstrs :: [String] -> [(Int, Int, Int)]
 getInstrs t = map ((\[x,y,z] -> (x, y, z)) . mapMaybe readMaybe . words) t
 
-evalInstrs :: [(Int, Int, Int)] -> [String] -> [String]
-evalInstrs [] xs     = xs
-evalInstrs (i:is) xs = evalInstrs is (evalInstr i xs)
+evalInstrs :: [String] -> [(Int, Int, Int)] -> [String]
+evalInstrs = foldl' evalInstr
   where 
-    evalInstr :: (Int, Int, Int) -> [String] -> [String]
-    evalInstr (n, from, to) xs = map snd $ sort $ nubBy (\x y -> fst x == fst y) xs'
+    evalInstr :: [String] -> (Int, Int, Int) -> [String]
+    evalInstr xs (n, from, to) = map snd $ sort $ nubBy (\x y -> fst x == fst y) xs'
       where 
         zipped      = zip [0..] xs
         (x, fromS)  = zipped !! (from - 1)
@@ -28,12 +27,11 @@ evalInstrs (i:is) xs = evalInstrs is (evalInstr i xs)
 --------------------------------------------------------------------------------
 -- Part 2
 
-evalInstrs' :: [(Int, Int, Int)] -> [String] -> [String]
-evalInstrs' [] xs     = xs
-evalInstrs' (i:is) xs = evalInstrs' is (evalInstr i xs)
+evalInstrs' :: [String] -> [(Int, Int, Int)] -> [String]
+evalInstrs' = foldl' evalInstr
   where 
-    evalInstr :: (Int, Int, Int) -> [String] -> [String]
-    evalInstr (n, from, to) xs = map snd $ sort $ nubBy (\x y -> fst x == fst y) xs'
+    evalInstr :: [String] -> (Int, Int, Int) ->  [String]
+    evalInstr xs (n, from, to) = map snd $ sort $ nubBy (\x y -> fst x == fst y) xs'
       where 
         zipped      = zip [0..] xs
         (x, fromS)  = zipped !! (from - 1)
@@ -43,6 +41,7 @@ evalInstrs' (i:is) xs = evalInstrs' is (evalInstr i xs)
 
 --------------------------------------------------------------------------------
 
+main :: IO ()
 main = do 
   t <- readFile "input5.txt"
   let sep = "\n\n"
@@ -51,8 +50,8 @@ main = do
   let stacks = getStacks s
   let instrs = getInstrs i
   
-  let stacks' = evalInstrs instrs stacks
+  let stacks' = evalInstrs stacks instrs 
   putStrLn $ "Crates on top: " ++ map head stacks'
 
-  let stacks'' = evalInstrs' instrs stacks
+  let stacks'' = evalInstrs' stacks instrs 
   putStrLn $ "Crates on top (v2): " ++ map head stacks''
