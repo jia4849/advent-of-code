@@ -22,7 +22,7 @@ evalInstrs = foldl' evalInstr
         (x, fromS)  = zipped !! (from - 1)
         (s, fromS') = splitAt n fromS
         (y, toS)    = zipped !! (to - 1)
-        xs'         = reverse (zipped ++ [(x, fromS')] ++ [(y, reverse s ++ toS)])
+        xs'         = (x, fromS') : (y, reverse s ++ toS) : zipped
 
 --------------------------------------------------------------------------------
 -- Part 2
@@ -37,7 +37,7 @@ evalInstrs' = foldl' evalInstr
         (x, fromS)  = zipped !! (from - 1)
         (s, fromS') = splitAt n fromS
         (y, toS)    = zipped !! (to - 1)
-        xs'         = reverse (zipped ++ [(x, fromS')] ++ [(y, s ++ toS)])
+        xs'         = (x, fromS') : (y, s ++ toS) : zipped
 
 --------------------------------------------------------------------------------
 
