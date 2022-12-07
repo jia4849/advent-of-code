@@ -12,6 +12,9 @@ getMarkerChars s len n
   | otherwise                        = getMarkerChars (xs ++ s') len (n + 1)
   where (xs'@(_ : xs), s') = splitAt len s
 
+--------------------------------------------------------------------------------
+
+main :: IO ()
 main = do 
   text <- readFile "input6.txt"
 
