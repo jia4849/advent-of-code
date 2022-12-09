@@ -4,7 +4,7 @@ import Data.Maybe
 type Cmd = (String, Int)
 type Pos = (Int, Int)
 
-initial :: [(Int, Int)]
+initial :: [[(Int, Int)]]
 initial = repeat [(0, 0)]
 
 getCmds :: String -> [Cmd]
