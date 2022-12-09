@@ -17,12 +17,10 @@ getDiags :: Pos -> [Pos]
 getDiags (x, y) = [(x + m, y + n) | m <- [1, -1], n <- [1, -1]]
 
 getDirOf :: Int -> Pos -> Pos -> Maybe (String)
-getDirOf n h p@(x, y) = lookup h (zip direct dirs ++ (zip diags dirs'))
+getDirOf n h p@(x, y) = lookup h (zip direct dirs)
   where 
-    direct = [(x - n, y), (x + n, y), (x, y + n), (x, y - n)] 
-    dirs   = ["L", "R", "U", "D"]
-    diags  = getDiags p
-    dirs'  = ["RU", "RD", "LU", "LD"]
+    direct = [(x - n, y), (x + n, y), (x, y + n), (x, y - n)] ++ getDiags p
+    dirs   = ["L", "R", "U", "D", "RU", "RD", "LU", "LD"]
 
 updatePos :: String -> Pos -> Pos
 updatePos "" p          = p
