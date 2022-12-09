@@ -4,6 +4,9 @@ import Data.Maybe
 type Cmd = (String, Int)
 type Pos = (Int, Int)
 
+initial :: [(Int, Int)]
+initial = repeat [(0, 0)]
+
 getCmds :: String -> [Cmd]
 getCmds = map ((\[a,b] -> (a, read b)) . words) . lines
 
@@ -56,15 +59,14 @@ processCmds = foldl' processCmd
 main = do 
   text <- readFile "input9.txt"
   
-  let state = repeat [(0, 0)]
   let cmds = getCmds text
 
   -- Part 1
-  let state' = processCmds (take 2 state) cmds
+  let state' = processCmds (take 2 initial) cmds
   let t = last state'
   putStrLn $ "Positions visited at least once: " ++ show (length $ nub t)
 
   -- Part 2
-  let state'' = processCmds (take 10 state) cmds
+  let state'' = processCmds (take 10 initial) cmds
   let t' = last state''
   putStrLn $ "Positions visited at least once (v2): " ++ show (length $ nub t')
