@@ -54,11 +54,10 @@ processCmds = foldl' processCmd
         
 --------------------------------------------------------------------------------
 
+main :: IO ()
 main = do 
-  text <- readFile "input9.txt"
+  cmds <- getCmds <$> readFile "input9.txt"
   
-  let cmds = getCmds text
-
   -- Part 1
   let state' = processCmds (take 2 initial) cmds
   let t = last state'
