@@ -1,3 +1,3 @@
-# advent-of-code
+# Advent of Code
 
-My solutions to Advent of Code :)
+My solutions for Advent of Code 2022, written in Haskell :)
