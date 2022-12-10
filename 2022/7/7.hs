@@ -3,10 +3,8 @@ import Data.Maybe
 import qualified Data.Text as T
 
 data DirTree = File String Int | Dir String [DirTree]
-  deriving Show 
 
 data Command = CD String | LS [DirTree]
-  deriving Show
 
 emptyDT :: DirTree
 emptyDT = Dir "/" []
