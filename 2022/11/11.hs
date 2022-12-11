@@ -1,5 +1,3 @@
-{-# LANGUAGE BangPatterns #-}
-
 import Data.List
 import Data.Maybe 
 import qualified Data.Text as T
@@ -7,9 +5,6 @@ import qualified Data.Text as T
 -- Part 1
 
 type Info = (Int, Integer -> Integer, Integer -> Bool, Int, Int)
-
-modProduct :: Integer
-modProduct = 11 * 19 * 5 * 2 * 13 * 7 * 3 * 17
 
 strToOp = 
   [ ("+", (+)),
@@ -66,6 +61,9 @@ getMonkeyBusiness = product . take 2 . sortBy (flip compare) . count
 
 --------------------------------------------------------------------------------
 -- Part 2
+
+modProduct :: Integer
+modProduct = 11 * 19 * 5 * 2 * 13 * 7 * 3 * 17
 
 inspect' :: [[([Int], Integer)]] -> Info -> [[([Int], Integer)]]
 inspect' lst info@(n, op, test, throwT, throwF)
